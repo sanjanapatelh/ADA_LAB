@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+int task[20][20],n;
+void take_input(){
+    int p_t=0, t=0;
+    cout<<"enter no. of tasks \n";
+    cin>>n;
+    for(int i =0;i<n;i++){
+        for(int j=0;j<n;j++){
+            task[i][j]=0;
+        }
+    }
+    while(t != -1 || p_t !=-1){
+        cout<<"enter edges and [-1 -1] to stop\n";
+        cin>>t>>p_t;
+        if(t!= -1 || p_t!=-1)
+            task[p_t][t]=1;
+        }}
+void topologicalOrder(){
+    int indegree[20],k,stack[20],top=-1;
+    for(int i=0;i<n;i++){
+        indegree[i]=0;
+        for(int j=0;j<n;j++){
+            indegree[i] +=task[j][i];
+        }
+    }
+    for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                stack[++top]=i;
+            }}
+    while(top!=-1 ){
+      k=stack[top--];
+      cout<<k<<"\t";
+      indegree[k]=-1;
+      for(int l=0;l<n;l++){
+       if(task[k][l]==1){
+       indegree[l] -=1;
+       if(indegree[l]== 0)
+       stack[++top]=l;
+     }
+            }}
+    cout<<endl;
+}
+int main(){
+    take_input();
+    topologicalOrder();
+    return 0;
+}
